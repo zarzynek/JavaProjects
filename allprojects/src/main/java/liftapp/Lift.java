@@ -50,7 +50,7 @@ public class Lift {
 
     // Methods
     public int[] runLift() {
-        while (this.checkFutherFloorsRequests(0, this.queues.length) || this.liftOccupants.size() > 0) {
+        while (this.checkFurtherFloorsRequests(0, this.queues.length) || this.liftOccupants.size() > 0) {
             if (this.checkIfStopRequired()) {
                 this.visitedFloors.add(this.currentFloorNumber);
                 this.letPeopleOut();
@@ -82,12 +82,12 @@ public class Lift {
             if (this.currentDirection == Direction.UP) {
                 return this.checkCurrentFloorRequests()
                         ? true
-                        : (!this.checkFutherFloorsRequests(this.currentFloorNumber + 1, this.queues.length)
+                        : (!this.checkFurtherFloorsRequests(this.currentFloorNumber + 1, this.queues.length)
                         && (this.liftOccupants.size() == 0));
             } else {
                 return this.checkCurrentFloorRequests()
                         ? true
-                        : (!this.checkFutherFloorsRequests(0, this.currentFloorNumber)
+                        : (!this.checkFurtherFloorsRequests(0, this.currentFloorNumber)
                         && (this.liftOccupants.size() == 0));
             }
         }
@@ -97,7 +97,7 @@ public class Lift {
         if (this.currentDirection == Direction.UP) {
             if (this.checkLiftOccupantsRequests()) {
                 return this.currentDirection;
-            } else if (this.checkFutherFloorsRequests(this.currentFloorNumber + 1, this.queues.length)
+            } else if (this.checkFurtherFloorsRequests(this.currentFloorNumber + 1, this.queues.length)
                     && this.liftOccupants.size() < this.capacity) {
                 return this.currentDirection;
             } else {
@@ -106,10 +106,10 @@ public class Lift {
         } else {
             if (this.checkLiftOccupantsRequests()) {
                 return this.currentDirection;
-            } else if (this.checkFutherFloorsRequests(0, this.currentFloorNumber)
+            } else if (this.checkFurtherFloorsRequests(0, this.currentFloorNumber)
                     && this.liftOccupants.size() < this.capacity) {
                 return this.currentDirection;
-            } else if (this.checkFutherFloorsRequests(this.currentFloorNumber, this.queues.length)
+            } else if (this.checkFurtherFloorsRequests(this.currentFloorNumber, this.queues.length)
                     && this.liftOccupants.size() < this.capacity) {
                 return Direction.UP;
             } else {
@@ -138,14 +138,14 @@ public class Lift {
         return remainingFloorQueue.stream().mapToInt(Integer::intValue).toArray();
     }
 
-    private boolean checkFutherFloorsRequests(int fromFloor, int toFloor) {
-        return Arrays.stream(Arrays.copyOfRange(this.queues, fromFloor, toFloor)).filter(e -> e.length > 0).findAny().isPresent();
+    private boolean checkFurtherFloorsRequests(int fromFloor, int toFloor) {
+        return Arrays.stream(Arrays.copyOfRange(this.queues, fromFloor, toFloor)).anyMatch(e -> e.length > 0);
     }
 
     private boolean checkCurrentFloorRequests() {
         return this.currentDirection == Direction.UP
-                ? Arrays.stream(this.queues[this.currentFloorNumber]).filter(e -> e > this.currentFloorNumber).findAny().isPresent()
-                : Arrays.stream(this.queues[this.currentFloorNumber]).filter(e -> e < this.currentFloorNumber).findAny().isPresent();
+                ? Arrays.stream(this.queues[this.currentFloorNumber]).anyMatch(e -> e > this.currentFloorNumber)
+                : Arrays.stream(this.queues[this.currentFloorNumber]).anyMatch(e -> e < this.currentFloorNumber);
     }
 
     private boolean checkLiftOccupantsRequests() {

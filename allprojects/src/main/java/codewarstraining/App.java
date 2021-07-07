@@ -13,7 +13,7 @@ package codewarstraining;
 public class App {
     public static void main(String[] args)
     {
-      
+      System.out.println(Katas.scramble("scriptingjava","javascript"));
     }
     
 }

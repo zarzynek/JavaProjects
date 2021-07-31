@@ -46,32 +46,36 @@ public class Katas {
     https://www.codewars.com/kata/55c6126177c9441a570000cc/train/java
      */
     public static String orderWeight(String strng) {
+        // 0. Process empty string
+        if("".equals(strng)){
+            return strng;
+        }
+        
         // 1. Remove trailing spaces and non unique spaces between numbers
         strng = strng.strip();
         while (strng.contains("  ")) {
             strng = strng.replaceAll("  ", " ");
         }
-        int[] values = Stream.of(strng.split(" ")).mapToInt(Integer::valueOf).toArray();
+        long[] values = Stream.of(strng.split(" ")).mapToLong(Long::valueOf).toArray();
 
         // 2. Calculate the weights (helper method)
-        int[][] weightsAndValues = new int[values.length][2];
+        long[][] weightsAndValues = new long[values.length][2];
         for (int i = 0; i < values.length; i++) {
             weightsAndValues[i][0] = Katas.calculateWeight(values[i]);
             weightsAndValues[i][1] = values[i];
         }
 
         // 3. Order according to weights, including where two or more weights are equal
-        // Find out how to sort a two dimensional array and potentially how to make a custom sort
-        Arrays.sort(weightsAndValues, new Comparator<int[]>() {
+        Arrays.sort(weightsAndValues, new Comparator<long[]>() {
             @Override
-            public int compare(int[] first, int[] second) {
+            public int compare(long[] first, long[] second) {
                 if (first[0] > second[0]) {
                     return 1;
                 } else if (first[0] < second[0]) {
                     return -1;
-                } else if (first[1] > second[1]) {
+                } else if (String.valueOf(first[1]).compareTo(String.valueOf(second[1]))>0) {
                     return 1;
-                } else if (first[0] < second[0]) {
+                } else if (String.valueOf(first[1]).compareTo(String.valueOf(second[1]))<0) {
                     return -1;
                 } else {
                     return 0;
@@ -79,17 +83,17 @@ public class Katas {
             }
         });
 
+        // 4. Extract the values and return them as String
         StringBuilder result = new StringBuilder();
-        for (int value : weightsAndValues[1]) {
-            result = result.append(value).append(" ");
+        for (int i=0; i<weightsAndValues.length; i++) {
+            result = result.append(weightsAndValues[i][1]).append(" ");
         }
 
         return result.toString().strip();
-
     }
 
-    private static int calculateWeight(int number) {
-        int weight = 0;
+    private static long calculateWeight(long number) {
+        long weight = 0;
         if (number < 10) {
             return number;
         }

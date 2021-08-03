@@ -5,12 +5,10 @@
  */
 package codewarstraining;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
- *
  * @author Adam
  */
 public class Katas {
@@ -47,10 +45,10 @@ public class Katas {
      */
     public static String orderWeight(String strng) {
         // 0. Process empty string
-        if("".equals(strng)){
+        if ("".equals(strng)) {
             return strng;
         }
-        
+
         // 1. Remove trailing spaces and non unique spaces between numbers
         strng = strng.strip();
         while (strng.contains("  ")) {
@@ -73,9 +71,9 @@ public class Katas {
                     return 1;
                 } else if (first[0] < second[0]) {
                     return -1;
-                } else if (String.valueOf(first[1]).compareTo(String.valueOf(second[1]))>0) {
+                } else if (String.valueOf(first[1]).compareTo(String.valueOf(second[1])) > 0) {
                     return 1;
-                } else if (String.valueOf(first[1]).compareTo(String.valueOf(second[1]))<0) {
+                } else if (String.valueOf(first[1]).compareTo(String.valueOf(second[1])) < 0) {
                     return -1;
                 } else {
                     return 0;
@@ -85,7 +83,7 @@ public class Katas {
 
         // 4. Extract the values and return them as String
         StringBuilder result = new StringBuilder();
-        for (int i=0; i<weightsAndValues.length; i++) {
+        for (int i = 0; i < weightsAndValues.length; i++) {
             result = result.append(weightsAndValues[i][1]).append(" ");
         }
 
@@ -106,5 +104,38 @@ public class Katas {
             }
         } while (number >= 10);
         return weight;
+    }
+
+    /*
+    ============================================================================
+    Best travel
+    https://www.codewars.com/kata/55e7280b40e1c4a06d0000aa/train/java
+    */
+
+    public static Integer chooseBestSum(int t, int k, List<Integer> ls) {
+        // 1. Return null if number of cities to visit is larger than number of cities available
+        if (k > ls.size()) return null;
+        // 2. Find the most suitable datatype to store the total distances
+        List<Integer> totalDistances = new ArrayList<>();
+        // 3. Calculate the total distances
+        totalDistances = Katas.calculateSums()
+        // 4. Find the largest permitted distance
+
+        // 5. You only have to return the distance, not the cities - think!
+    }
+    private static LinkedList calculateSums(int noCities, List<Integer> distances)
+    {
+        LinkedList<Integer> sums = new LinkedList<>();
+        for(int i=0; i<distances.size(); i++)
+        {
+            for(int j=i+1; j<distances.size(); j++)
+            {
+                for(int k=j+1; k<distances.size(); k++)
+                {
+                    sums.add(distances.get(i) + distances.get(k) + distances.get(j));
+                }
+            }
+        }
+        return sums;
     }
 }

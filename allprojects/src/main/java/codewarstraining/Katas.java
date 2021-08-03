@@ -112,30 +112,64 @@ public class Katas {
     https://www.codewars.com/kata/55e7280b40e1c4a06d0000aa/train/java
     */
 
-    public static Integer chooseBestSum(int t, int k, List<Integer> ls) {
-        // 1. Return null if number of cities to visit is larger than number of cities available
-        if (k > ls.size()) return null;
-        // 2. Find the most suitable datatype to store the total distances
-        List<Integer> totalDistances = new ArrayList<>();
-        // 3. Calculate the total distances
-        totalDistances = Katas.calculateSums()
-        // 4. Find the largest permitted distance
-
-        // 5. You only have to return the distance, not the cities - think!
-    }
-    private static LinkedList calculateSums(int noCities, List<Integer> distances)
+//    public static Integer chooseBestSum(int t, int k, List<Integer> ls) {
+//        // 1. Return null if number of cities to visit is larger than number of cities available
+//        if (k > ls.size()) return null;
+//        // 2. Find the most suitable datatype to store the total distances
+//        List<Integer> totalDistances = new ArrayList<>();
+//        // 3. Calculate the total distances
+//        totalDistances = Katas.calculateSums()
+//        // 4. Find the largest permitted distance
+//
+//        // 5. You only have to return the distance, not the cities - think!
+//    }
+//    
+//    
+//    private static LinkedList calculateSums(int cityCounter, List<Integer> distances)
+//    {
+//        LinkedList<Integer> sums = new LinkedList<>();
+//        
+//        while(cityCounter > 0)
+//        {
+//            
+//        }
+//    }
+//    
+    public static Set test3(List<Integer> distances)
     {
-        LinkedList<Integer> sums = new LinkedList<>();
-        for(int i=0; i<distances.size(); i++)
+        Set<Integer> sums = new HashSet<>();
+        for(int i=0; i< distances.size()-2; i++)
         {
-            for(int j=i+1; j<distances.size(); j++)
+            for(int j=i+1; j<distances.size()-1; j++)
             {
                 for(int k=j+1; k<distances.size(); k++)
                 {
-                    sums.add(distances.get(i) + distances.get(k) + distances.get(j));
+                    sums.add(distances.get(i) + distances.get(j) + distances.get(k));
                 }
             }
         }
         return sums;
     }
+    
+    private static Integer createSum(List<Integer> distances, int levelCounter, int currentLevel, int loopCounter)
+    {
+        // Base Case
+        if(levelCounter == currentLevel)
+        {
+            return distances.get(loopCounter);
+        }
+        else
+        {
+            return distances.get(loopCounter) + Katas.createSum(distances, levelCounter, currentLevel + 1, loopCounter + 1);
+        }
+        // 
+    }
+    
+    /*
+    1. A storage array of the size of cityCounter
+        -> when full - sum the contents / tranfer sum to the results set / empty the last element and check if can be replaced.
+    -> if not - swap an element from a immediate lower lever with the next value in distances
+    -> repeat
+    */
+    
 }

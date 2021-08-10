@@ -111,10 +111,21 @@ public class Katas {
     Bit Counting
     https://www.codewars.com/kata/526571aae218b8ee490006f4
      */
-    public static int countBits(int n) {
-        // Base : if n=0 return 0
-        
-        // If n > 0 return n - n ^ Math.floor(log2(n)), add 1 to the result
+    public static int countOnes(int n) {
+        if (n == 0) {
+            return 0;
+        } else {
+            return 1 + Katas.countOnes(n - (int) Math.pow(2, Math.floor(Math.log((double) n) / Math.log(2))));
+        }
+    }
+
+    /*
+    ============================================================================
+    Roman Numerals Encoder
+    https://www.codewars.com/kata/51b62bf6a9c58071c600001b/train/java
+     */
+    public String solution(int n) {
+        return "";
     }
 
 }

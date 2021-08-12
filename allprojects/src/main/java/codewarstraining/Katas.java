@@ -121,77 +121,60 @@ public class Katas {
 
     /*
     ============================================================================
-    Roman Numerals Encoder
-    https://www.codewars.com/kata/51b62bf6a9c58071c600001b/train/java
+    Human readable duration format
+    https://www.codewars.com/kata/52742f58faf5485cae000b9a/train/java
      */
-    public static String solution(int n) {
-        StringBuilder romanNumeral = new StringBuilder("");
-        // 1000s
-        while (n >= 1000) {
-            romanNumeral.append("M");
-            n -= 1000;
+    public static String formatDuration(int seconds) {
+        // Use a map to store values for seconds, minutes, hours, days, years
+        // 1. A function to calculate each value and store it
+        Map<String, Integer> values = Katas.calculateValues(seconds);
+        // 2. A function to create a string (a long one, think whether it should be split)
+        return "";
+    }
+
+    private static Map<String, Integer> calculateValues(int seconds) {
+        LinkedHashMap<String, Integer> values = new LinkedHashMap<>();
+        values.put("seconds", 0);
+        values.put("minutes", 0);
+        values.put("hours", 0);
+        values.put("days", 0);
+        values.put("years", 0);
+
+        int currentValue;
+        if (seconds >= 31536000) {
+            currentValue = (int) Math.floor(seconds / 31536000);
+            values.replace("years", values.get("years"), values.get("years") + currentValue);
+            seconds -= currentValue * 31536000;
         }
-        // 900
-        if (n >= 900) {
-            romanNumeral.append("CM");
-            n -= 900;
+        if (seconds >= 86400) {
+            currentValue = (int) Math.floor(seconds / 86400);
+            values.replace("days", values.get("days"), values.get("days") + currentValue);
+            seconds -= currentValue * 86400;
         }
-        // 500
-        if (n >= 500) {
-            romanNumeral.append("D");
-            n -= 500;
+        if (seconds >= 3600) {
+            currentValue = (int) Math.floor(seconds / 3600);
+            values.replace("hours", values.get("hours"), values.get("hours") + currentValue);
+            seconds -= currentValue * 3600;
         }
-        // 400
-        if (n >= 400) {
-            romanNumeral.append("CD");
-            n -= 400;
+        if (seconds >= 60) {
+            currentValue = (int) Math.floor(seconds / 60);
+            values.replace("minutes", values.get("minutes"), values.get("minutes") + currentValue);
+            seconds -= currentValue * 60;
         }
-        // 100s
-        while (n >= 100) {
-            romanNumeral.append("C");
-            n -= 100;
+        if (seconds >= 1) {
+            currentValue = (int) Math.floor(seconds / 1);
+            values.replace("seconds", values.get("seconds"), values.get("seconds") + currentValue);
         }
-        //90
-        if (n >= 90) {
-            romanNumeral.append("XC");
-            n -= 90;
+
+        return values;
+    }
+
+    private static String buildAnswer(LinkedHashMap<String, Integer> values) {
+        StringBuilder answer = new StringBuilder();
+        if (values.get("years") > 0) {
+            answer.append(values.get("years") == 1 ? values.get("years") + " year" : values.get("years") + " years");
+
         }
-        // 50
-        if (n >= 50) {
-            romanNumeral.append("L");
-            n -= 50;
-        }
-        // 40
-        if (n >= 40) {
-            romanNumeral.append("XL");
-            n -= 40;
-        }
-        // 10s
-        while (n >= 10) {
-            romanNumeral.append("X");
-            n -= 10;
-        }
-        //9
-        if (n >= 9) {
-            romanNumeral.append("IX");
-            n -= 9;
-        }
-        // 5
-        if (n >= 5) {
-            romanNumeral.append("V");
-            n -= 5;
-        }
-        // 5
-        if (n >= 4) {
-            romanNumeral.append("IV");
-            n -= 4;
-        }
-        // 1s
-        while (n >= 1) {
-            romanNumeral.append("I");
-            n -= 1;
-        }
-        return romanNumeral.toString();
     }
 
 }

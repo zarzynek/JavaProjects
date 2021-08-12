@@ -124,8 +124,74 @@ public class Katas {
     Roman Numerals Encoder
     https://www.codewars.com/kata/51b62bf6a9c58071c600001b/train/java
      */
-    public String solution(int n) {
-        return "";
+    public static String solution(int n) {
+        StringBuilder romanNumeral = new StringBuilder("");
+        // 1000s
+        while (n >= 1000) {
+            romanNumeral.append("M");
+            n -= 1000;
+        }
+        // 900
+        if (n >= 900) {
+            romanNumeral.append("CM");
+            n -= 900;
+        }
+        // 500
+        if (n >= 500) {
+            romanNumeral.append("D");
+            n -= 500;
+        }
+        // 400
+        if (n >= 400) {
+            romanNumeral.append("CD");
+            n -= 400;
+        }
+        // 100s
+        while (n >= 100) {
+            romanNumeral.append("C");
+            n -= 100;
+        }
+        //90
+        if (n >= 90) {
+            romanNumeral.append("XC");
+            n -= 90;
+        }
+        // 50
+        if (n >= 50) {
+            romanNumeral.append("L");
+            n -= 50;
+        }
+        // 40
+        if (n >= 40) {
+            romanNumeral.append("XL");
+            n -= 40;
+        }
+        // 10s
+        while (n >= 10) {
+            romanNumeral.append("X");
+            n -= 10;
+        }
+        //9
+        if (n >= 9) {
+            romanNumeral.append("IX");
+            n -= 9;
+        }
+        // 5
+        if (n >= 5) {
+            romanNumeral.append("V");
+            n -= 5;
+        }
+        // 5
+        if (n >= 4) {
+            romanNumeral.append("IV");
+            n -= 4;
+        }
+        // 1s
+        while (n >= 1) {
+            romanNumeral.append("I");
+            n -= 1;
+        }
+        return romanNumeral.toString();
     }
 
 }

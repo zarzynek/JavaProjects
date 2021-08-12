@@ -133,7 +133,7 @@ public class Katas {
     }
 
     private static Map<String, Integer> calculateValues(int seconds) {
-        HashMap<String, Integer> values = new HashMap<>();
+        LinkedHashMap<String, Integer> values = new LinkedHashMap<>();
         values.put("seconds", 0);
         values.put("minutes", 0);
         values.put("hours", 0);
@@ -165,10 +165,16 @@ public class Katas {
             currentValue = (int) Math.floor(seconds / 1);
             values.replace("seconds", values.get("seconds"), values.get("seconds") + currentValue);
         }
-        
+
         return values;
     }
-    
-    private static String buildAnswer (Map<Integer, String> values)
+
+    private static String buildAnswer(LinkedHashMap<String, Integer> values) {
+        StringBuilder answer = new StringBuilder();
+        if (values.get("years") > 0) {
+            answer.append(values.get("years") == 1 ? values.get("years") + " year" : values.get("years") + " years");
+
+        }
+    }
 
 }

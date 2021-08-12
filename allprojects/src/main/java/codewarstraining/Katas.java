@@ -127,12 +127,12 @@ public class Katas {
     public static String formatDuration(int seconds) {
         // Use a map to store values for seconds, minutes, hours, days, years
         // 1. A function to calculate each value and store it
-        Map<String, Integer> values = Katas.calculateValues(seconds);
+        LinkedHashMap<String, Integer> values = Katas.calculateValues(seconds);
         // 2. A function to create a string (a long one, think whether it should be split)
-        return "";
+        return Katas.buildAnswer(values);
     }
 
-    private static Map<String, Integer> calculateValues(int seconds) {
+    private static LinkedHashMap<String, Integer> calculateValues(int seconds) {
         LinkedHashMap<String, Integer> values = new LinkedHashMap<>();
         values.put("seconds", 0);
         values.put("minutes", 0);
@@ -171,10 +171,17 @@ public class Katas {
 
     private static String buildAnswer(LinkedHashMap<String, Integer> values) {
         StringBuilder answer = new StringBuilder();
-        if (values.get("years") > 0) {
-            answer.append(values.get("years") == 1 ? values.get("years") + " year" : values.get("years") + " years");
+        Set<String> valuesKeySet = values.keySet();
 
+        for (String key : valuesKeySet) {
+            if (values.get(key) > 0) {
+                answer.append(values.get(key) == 1 ? values.get(key) + " " + key : values.get(key) + " " + key + "s");
+                values.remove(key);
+                answer.append(values.values().stream().max(Comparator.comparing(e -> e)).orElse(0) > 0 ? ", " : "");
+            }
         }
+
+        return answer.toString();
     }
 
 }

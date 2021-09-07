@@ -7,15 +7,12 @@ package bankaccountapp;
 
 /**
  *
- * @author adamw
+ * @author Adam
  */
 public class BankAccountApp {
+    
     public static void main(String[] args)
     {
-        Account acc1 = new Checking(12345);
-        Account acc2 = new Checking(67890);
-        acc1.showInfo();
-        acc2.showInfo();
+        
     }
-    
 }

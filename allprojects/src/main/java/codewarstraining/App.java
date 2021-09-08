@@ -11,8 +11,6 @@ package codewarstraining;
  */
 public class App {
     public static void main(String[] args) {
-//      System.out.println(Katas.scramble("scriptjavx","javascript"));
-        // System.out.println(Katas.orderWeight("180 56 65 74 100 99 68 86 180 90"));
         System.out.println(Katas.formatDuration(3662));
     }
 

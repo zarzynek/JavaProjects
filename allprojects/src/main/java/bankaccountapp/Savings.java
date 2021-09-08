@@ -7,18 +7,8 @@ package bankaccountapp;
 
 /**
  *
- * @author adamw
+ * @author Adam
  */
 public class Savings extends Account {
-    // List properties specific to Savings account
-public Savings(int aSocialSecurityNumber){
-    super(aSocialSecurityNumber);
-}
-    // Write constructor for Savings account (on top of the Account contstructor)
-// Implement the showInfo method    
-    public void showInfo()
-    {
-        
-    }
-// List methods specific to Savings account
+       
 }

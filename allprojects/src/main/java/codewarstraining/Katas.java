@@ -125,45 +125,45 @@ public class Katas {
     https://www.codewars.com/kata/52742f58faf5485cae000b9a/train/java
      */
     public static String formatDuration(int seconds) {
-        // Use a map to store values for seconds, minutes, hours, days, years
-        // 1. A function to calculate each value and store it
+        if (seconds == 0) {
+            return "now";
+        }
         LinkedHashMap<String, Integer> values = Katas.calculateValues(seconds);
-        // 2. A function to create a string (a long one, think whether it should be split)
         return Katas.buildAnswer(values);
     }
 
     private static LinkedHashMap<String, Integer> calculateValues(int seconds) {
         LinkedHashMap<String, Integer> values = new LinkedHashMap<>();
-        values.put("seconds", 0);
-        values.put("minutes", 0);
-        values.put("hours", 0);
-        values.put("days", 0);
-        values.put("years", 0);
+        values.put("year", 0);
+        values.put("day", 0);
+        values.put("hour", 0);
+        values.put("minute", 0);
+        values.put("second", 0);
 
         int currentValue;
         if (seconds >= 31536000) {
             currentValue = (int) Math.floor(seconds / 31536000);
-            values.replace("years", values.get("years"), values.get("years") + currentValue);
+            values.replace("year", values.get("year"), values.get("year") + currentValue);
             seconds -= currentValue * 31536000;
         }
         if (seconds >= 86400) {
             currentValue = (int) Math.floor(seconds / 86400);
-            values.replace("days", values.get("days"), values.get("days") + currentValue);
+            values.replace("day", values.get("day"), values.get("day") + currentValue);
             seconds -= currentValue * 86400;
         }
         if (seconds >= 3600) {
             currentValue = (int) Math.floor(seconds / 3600);
-            values.replace("hours", values.get("hours"), values.get("hours") + currentValue);
+            values.replace("hour", values.get("hour"), values.get("hour") + currentValue);
             seconds -= currentValue * 3600;
         }
         if (seconds >= 60) {
             currentValue = (int) Math.floor(seconds / 60);
-            values.replace("minutes", values.get("minutes"), values.get("minutes") + currentValue);
+            values.replace("minute", values.get("minute"), values.get("minute") + currentValue);
             seconds -= currentValue * 60;
         }
         if (seconds >= 1) {
             currentValue = (int) Math.floor(seconds / 1);
-            values.replace("seconds", values.get("seconds"), values.get("seconds") + currentValue);
+            values.replace("second", values.get("second"), values.get("second") + currentValue);
         }
 
         return values;
@@ -173,15 +173,27 @@ public class Katas {
         StringBuilder answer = new StringBuilder();
         Set<String> valuesKeySet = values.keySet();
 
-        for (String key : valuesKeySet) {
-            if (values.get(key) > 0) {
-                answer.append(values.get(key) == 1 ? values.get(key) + " " + key : values.get(key) + " " + key + "s");
-                values.remove(key);
-                answer.append(values.values().stream().max(Comparator.comparing(e -> e)).orElse(0) > 0 ? ", " : "");
+        Iterator<String> itr = valuesKeySet.iterator();
+        while (itr.hasNext()) {
+            String currentKey = itr.next();
+            if (values.get(currentKey) > 0) {
+                answer.append(values.get(currentKey) == 1 ? values.get(currentKey) + " " + currentKey : values.get(currentKey) + " " + currentKey + "s");
+                itr.remove();
+                long remainingValuesCount = values.values().stream().filter(e -> e >= 1).count();
+                answer.append(remainingValuesCount > 1 ? ", " : (remainingValuesCount == 0 ? "" : " and "));
             }
         }
 
         return answer.toString();
     }
 
+    /*
+    ============================================================================
+    Permutations
+    https://www.codewars.com/kata/5254ca2719453dcc0b00027d/train/java
+     */
+    public static List<String> singlePermutations(String s) {
+        
+        return null;
+    }
 }
